@@ -20,7 +20,8 @@ jobs:
       - name: Clone Kernel Source & Building     
         run: |
           git clone --depth=1 https://gitlab.com/xanmod/linux -b 6.1 kernel/xanmod
-          git clone https://github.com/ghazzor/Xanmod-HP-250-G6-Builder kernel/xanmod
+          git clone https://github.com/ghazzor/Xanmod-HP-250-G6-Builder kernel/xanmod/bs
+          cp kernel/xanmod/bs/.config kernel/xanmod/.config
           cd kernel/xanmod
           make clean
           rm vmlinux-gdb.py
