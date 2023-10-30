@@ -1,0 +1,43 @@
+name: build
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+
+      - name: Install packages & setup
+        run: |
+          sudo apt update
+          sudo apt install nala -y
+          sudo nala upgrade -y 
+          sudo nala install gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git -y
+      
+      - name: Set Swap Space
+          uses: pierotofy/set-swap-space@master
+          with:
+            swap-size-gb: 10
+      
+      - name: Clone Kernel Source & Building     
+        run: |
+          git clone --depth=1 https://gitlab.com/xanmod/linux -b 6.1 kernel/xanmod
+          git clone  kernel/xanmod
+          cd kernel/xanmod
+          make clean
+          rm vmlinux-gdb.py
+          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=xanxan-6.1 -j$(nproc)
+          cd ..
+          rm -rf xanmod
+          rm *.gz
+          rm *.dsc
+          rm *.buildinfo
+          rm *.changes
+
+      - name: Upload kernel
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: Kernel-Build-Artifacts 
+          path: kernel/
