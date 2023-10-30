@@ -15,7 +15,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt upgrade 
-          sudo apt install gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git -y
+          sudo apt install gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
       
       - name: Clone Kernel Source & Building     
         run: |
