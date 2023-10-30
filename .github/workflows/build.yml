@@ -40,10 +40,10 @@ jobs:
           make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-18 deb-pkg -j$(nproc --all)
           cd ..
           rm -rf xanmod
-          rm *.gz
-          rm *.dsc
-          rm *.buildinfo
-          rm *.changes
+          rm -rf *.gz
+          rm -rf *.dsc
+          rm -rf *.buildinfo
+          rm -rf *.changes
 
       - name: Upload kernel
         uses: actions/upload-artifact@v3.1.2
