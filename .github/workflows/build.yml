@@ -24,7 +24,7 @@ jobs:
           cp kernel/xanmod/bs/.config kernel/xanmod/.config
           cd kernel/xanmod
           make clean
-          rm vmlinux-gdb.py
+          rm -rf vmlinux-gdb.py
           make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=xanxan-6.1 -j$(nproc)
           cd ..
           rm -rf xanmod
