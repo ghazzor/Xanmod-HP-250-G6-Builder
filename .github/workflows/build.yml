@@ -22,10 +22,8 @@ jobs:
           wget https://apt.llvm.org/llvm.sh
           chmod u+x llvm.sh
           sudo ./llvm.sh 18
-          sudo su
           cd /usr/lib/llvm-18/bin
-          for f in *; do rm -f /usr/bin/$f; \
-          ln -s ../lib/llvm-18/bin/$f /usr/bin/$f; done
+          sudo for f in *; do rm -f /usr/bin/$f ; ln -s ../lib/llvm-18/bin/$f /usr/bin/$f; done
           
       - name: Clone Kernel Source & Building     
         run: |
