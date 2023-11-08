@@ -16,14 +16,6 @@ jobs:
           sudo apt update
           sudo apt upgrade 
           sudo apt install wget gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
-      
-      - name: Installing Clang-18     
-        run: |
-          wget https://apt.llvm.org/llvm.sh
-          chmod u+x llvm.sh
-          sudo ./llvm.sh 18
-          cd /usr/lib/llvm-18/bin
-          sudo for f in *; do rm -f /usr/bin/$f ; ln -s ../lib/llvm-18/bin/$f /usr/bin/$f; done
           
       - name: Clone Kernel Source & Building     
         run: |
@@ -35,7 +27,7 @@ jobs:
           cd kernel/xanmod
           make clean
           rm -rf vmlinux-gdb.py
-          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-18 deb-pkg -j$(nproc --all)
+          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-stable deb-pkg -j$(nproc --all)
           cd ..
           rm -rf xanmod
           rm -rf *.gz
