@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
 
@@ -27,7 +27,7 @@ jobs:
           cd kernel/xanmod
           make clean
           rm -rf vmlinux-gdb.py
-          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-stable deb-pkg -j3
+          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-stable deb-pkg -j1
           cd ..
           rm -rf xanmod
           rm -rf *.gz
