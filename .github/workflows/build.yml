@@ -27,7 +27,7 @@ jobs:
           cd kernel/xanmod
           make clean
           rm -rf vmlinux-gdb.py
-          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-stable deb-pkg -j$(nproc --all)
+          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-stable deb-pkg -j3
           cd ..
           rm -rf xanmod
           rm -rf *.gz
