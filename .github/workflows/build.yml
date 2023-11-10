@@ -15,6 +15,12 @@ jobs:
           sudo apt update
           sudo apt upgrade 
           sudo apt install wget gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
+
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 12
+          
           
       - name: Clone Kernel Source & Building     
         run: |
@@ -26,7 +32,7 @@ jobs:
           cd kernel/xanmod
           make clean
           rm -rf vmlinux-gdb.py
-          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-stable deb-pkg -j1
+          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-stable deb-pkg -j$(nproc)
           cd ..
           rm -rf xanmod
           rm -rf *.gz
