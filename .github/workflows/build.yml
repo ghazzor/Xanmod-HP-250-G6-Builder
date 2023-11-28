@@ -17,7 +17,7 @@ jobs:
           wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
           sudo apt update
           sudo apt upgrade
-          sudo apt install clang-18 llvm-18 llvm-18-dev lldb-18 lld-18
+          sudo apt install clang-18 llvm-18 llvm-18-dev lldb-18 lld-18 -y
           sudo apt update 
           sudo apt install wget gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
 
