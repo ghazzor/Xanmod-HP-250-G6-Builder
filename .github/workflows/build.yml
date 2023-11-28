@@ -31,6 +31,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt upgrade -y
+          clang -v
           git clone --depth=1 https://gitlab.com/xanmod/linux -b 6.1 kernel/xanmod
           git clone https://github.com/ghazzor/Xanmod-HP-250-G6-Builder kernel/xanmod/bs
           cp kernel/xanmod/bs/.config kernel/xanmod/.config
