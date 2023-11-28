@@ -14,9 +14,10 @@ jobs:
         run: |
           sudo apt update
           sudo apt upgrade 
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
           sudo apt update
-          sudo apt install libllvm-18-ocaml-dev libllvm18 llvm-18 llvm-18-dev llvm-18-doc llvm-18-examples llvm-18-runtime clang-18 clang-tools-18 clang-18-doc libclang-common-18-dev libclang-18-dev libclang1-18 clang-format-18 python3-clang-18 clangd-18 clang-tidy-18 -y
+          sudo apt upgrade
+          sudo apt install clang-18 llvm-18 llvm-18-dev lldb-18 lld-18
           sudo apt update 
           sudo apt install wget gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
 
