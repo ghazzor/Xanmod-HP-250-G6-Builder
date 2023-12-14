@@ -14,10 +14,12 @@ jobs:
         run: |
           sudo apt update
           sudo apt upgrade 
-          sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
-          sudo apt update 
-          sudo apt install wget gcc-12 g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
-
+          sudo apt install wget gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
+      - name: Set up Clang
+        uses: egor-tensin/setup-clang@v1
+        with:
+          version: latest
+          platform: x64
       
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@master
@@ -36,14 +38,13 @@ jobs:
           cd kernel/xanmod
           make clean
           rm -rf vmlinux-gdb.py
-          make CC=clang-17 LD=ld.lld-17 LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-14-250-hz deb-pkg -j$(nproc)
+          make CC=clang LD=ld.lld LLVM=1 LLVM_IAS=1 KCFLAGS=-O3 LOCALVERSION=-xanmod-clang-14-300-hz-o3 deb-pkg -j$(nproc)
           cd ..
           rm -rf xanmod
           rm -rf *.gz
           rm -rf *.dsc
           rm -rf *.buildinfo
           rm -rf *.changes
-
       - name: Upload kernel
         uses: actions/upload-artifact@v3.1.2
         with:
