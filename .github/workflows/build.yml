@@ -24,6 +24,7 @@ jobs:
       - name: Clone Kernel Source & Building     
         run: |
           sudo apt update
+          sudo apt purge firefox -y
           sudo apt upgrade -y
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
