@@ -13,6 +13,7 @@ jobs:
       - name: Install packages & setup
         run: |
           sudo apt update
+          sudo apt purge firefox -y
           sudo apt upgrade 
           sudo apt install wget gcc-12 g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
         
@@ -23,9 +24,6 @@ jobs:
           
       - name: Clone Kernel Source & Building     
         run: |
-          sudo apt update
-          sudo apt purge firefox -y
-          sudo apt upgrade -y
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 19
