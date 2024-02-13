@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     
@@ -14,19 +14,22 @@ jobs:
         run: |
           sudo apt update
           sudo apt upgrade 
-          sudo apt install wget gcc-12 clang llvm lld g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
+          sudo apt install wget gcc-12 g++-12 gcc g++ build-essential bison flex pkg-config qtcreator qtbase5-dev qt5-qmake qttools5-dev-tools libssl-dev libncurses-dev git libelf-dev elfutils -y
           
       - name: Clone Kernel Source & Building     
         run: |
           sudo apt update
           sudo apt upgrade -y
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 19
           git clone --depth=1 https://gitlab.com/xanmod/linux -b 6.1 kernel/xanmod
           git clone https://github.com/ghazzor/Xanmod-HP-250-G6-Builder kernel/xanmod/bs
           cp kernel/xanmod/bs/.config kernel/xanmod/.config
           cd kernel/xanmod
           make clean
           rm -rf vmlinux-gdb.py
-          make CC=clang LLVM=1 LLVM_IAS=1 LOCALVERSION=-xanmod-clang-stable deb-pkg -j1
+          make LLVM=1 LLVM_IAS=1 LLVM_SUFFIX=-19 LOCALVERSION=-xanmod-clang deb-pkg -j1
           cd ..
           rm -rf xanmod
           rm -rf *.gz
